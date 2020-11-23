@@ -6,7 +6,7 @@ The postman scripts are checked in src/test/resources folder
 * cloudhub-random-data-generation-postman-collection.json
 
 
-Complete article: https://wiki.corp.mulesoft.com/display/SVCS/Test+Data+Generation
+Complete article: https://catalyst.mulesoft.com/display/OBD/Test+Data+Generation
 
 As always, feel free to reachout 
 mukesh.rijhwani@mulesoft.com
