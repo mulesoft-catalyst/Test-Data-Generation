@@ -1,0 +1,233 @@
+{
+	"info": {
+		"_postman_id": "81cb7a68-4fdc-441e-8dd6-80bb3de8eb5e",
+		"name": "Random Data Generator Collection (localhost)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Genreate Random Data in CSV",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "afeb2c00-d3e8-4045-84de-c52485abcace",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "272cae7b-78a8-4c9d-9a25-287b1ea01842",
+						"exec": [
+							"var dataSize = 10000; // change this",
+							"var csvLines = 'FirstName, LastName, Country, AccountName\\n'; //header line of CSV",
+							"for (var i = 0; i<dataSize;i++){",
+							"    csvLines += '{{$randomFirstName}}, {{$randomLastName}}, {{$randomCountry}}, {{$randomBankAccountName}}\\n';",
+							"}",
+							"pm.variables.set(\"csvData\", csvLines);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "text/csv",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{{csvData}}",
+					"options": {
+						"raw": {
+							"language": "text"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:8082/data",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"data"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Generate Random Data in JSON",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a3c38c24-3e6f-4a26-88c1-d6a1de855a0a",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "14b0e550-537a-465a-b1f8-27fc6693cae6",
+						"exec": [
+							"var dataSize = 10; // change this",
+							"var jsonArray = [];",
+							"for (var i = 0; i<dataSize;i++){",
+							"    jsonArray.push ('{ \"firstName\": \"{{$randomFirstName}}\" , \\",
+							"                       \"lastName\" :  \"{{$randomLastName}}\" , \\",
+							"                       \"country\" : \"{{$randomCountry}}\" }');",
+							"}",
+							"jsonString = '[' + jsonArray.toString() + ']';",
+							"pm.variables.set(\"jsonData\", jsonString);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "text/csv",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{{jsonData}}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:8082/data",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"data"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Generate Random Data in XML",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "29614c41-81e1-4ae4-a328-487ba1388031",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "52174583-e764-445f-9107-c80b3a92fb1f",
+						"exec": [
+							"var dataSize = 10; // change this",
+							"var xmlArray = [''];",
+							"for (var i = 0; i<dataSize;i++){",
+							"    xmlArray.push ('<customer><firstName>{{$randomFirstName}}</firstName> \\",
+							"                     <lastName>{{$randomLastName}}</lastName> \\",
+							"                     <country>{{$randomCountry}}</country></customer>');",
+							"}",
+							"xmlString = '<?xml version=\"1.0\" encoding=\"UTF-8\"?><customers>' + ",
+							"            xmlArray.join('') + '</customers>';",
+							"pm.variables.set(\"xmlData\", xmlString);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "text/csv",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{{xmlData}}",
+					"options": {
+						"raw": {
+							"language": "xml"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:8082/data",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"data"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "054d0527-2ab2-41cf-90de-fa424f65b054",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "f097ce09-ba8a-42b5-abf1-66c90207f6e2",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}

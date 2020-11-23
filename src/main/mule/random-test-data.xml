@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:tls="http://www.mulesoft.org/schema/mule/tls" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
+http://www.mulesoft.org/schema/mule/tls http://www.mulesoft.org/schema/mule/tls/current/mule-tls.xsd">
+	<http:listener-config name="HTTPS_Listener_config" doc:name="HTTP Listener config" doc:id="a78e9e3b-4761-4740-bd05-c66854acd52d" >
+		<http:listener-connection host="0.0.0.0" port="${https.port}" protocol="HTTPS">
+			<tls:context >
+				<tls:key-store type="jks" path="random.jks" alias="random" keyPassword="random" password="random" />
+			</tls:context>
+		</http:listener-connection>
+	</http:listener-config>
+	<global-property doc:name="Global Property" doc:id="0199432b-37ef-419e-a693-5e55d4ead4e3" name="https.port" value="8082" />
+	<flow name="random-test-dataFlow" doc:id="844eeb67-442d-461e-b2aa-419bcbd57d87" >
+		<http:listener doc:name="Listener" doc:id="480d05ab-63c6-4aac-87a6-e08c60253244" config-ref="HTTPS_Listener_config" path="/data"/>
+		<logger level="INFO" doc:name="Log Payload" doc:id="c7c2c375-5edc-4570-b018-be4a0a50cf2d" message="#[payload]" />
+	</flow>
+</mule>

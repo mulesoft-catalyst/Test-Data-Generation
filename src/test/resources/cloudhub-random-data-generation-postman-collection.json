@@ -1,0 +1,215 @@
+{
+	"info": {
+		"_postman_id": "07b9e035-eab6-42fa-8587-1b96e7fcd60a",
+		"name": "Random Data Generator Connection (Cloudhub)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Genreate Random Data in CSV",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9f83ddb2-7a89-4401-b01b-e5f3a9509828",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "972d779d-7ee5-436a-a3c1-3ed89da71d3b",
+						"exec": [
+							"var dataSize = 10000; // change this",
+							"var csvLines = 'FirstName, LastName, Country, AccountName\\n'; //header line of CSV",
+							"for (var i = 0; i<dataSize;i++){",
+							"    csvLines += '{{$randomFirstName}}, {{$randomLastName}}, {{$randomCountry}}, {{$randomBankAccountName}}\\n';",
+							"}",
+							"pm.variables.set(\"csvData\", csvLines);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "text/csv",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{{csvData}}",
+					"options": {
+						"raw": {
+							"language": "text"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:8082/data",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"data"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Generate Random Data in JSON",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d9237c41-5189-4c65-b2cb-cc7939967036",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "7ec35caf-8710-49ee-af48-f8a341b088bd",
+						"exec": [
+							"var dataSize = 10; // change this",
+							"var jsonArray = [];",
+							"for (var i = 0; i<dataSize;i++){",
+							"    jsonArray.push ('{ \"firstName\": \"{{$randomFirstName}}\" , \\",
+							"                       \"lastName\" :  \"{{$randomLastName}}\" , \\",
+							"                       \"country\" : \"{{$randomCountry}}\" }');",
+							"}",
+							"jsonString = '[' + jsonArray.toString() + ']';",
+							"pm.variables.set(\"jsonData\", jsonString);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "text/csv",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{{jsonData}}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://random-test-data.au-s1.cloudhub.io/data",
+					"protocol": "https",
+					"host": [
+						"random-test-data",
+						"au-s1",
+						"cloudhub",
+						"io"
+					],
+					"path": [
+						"data"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Generate Random Data in XML",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "17d92a43-b05f-4576-bef0-f7adab4166f5",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "820b5358-cf0f-4c61-b22b-38b01c75e089",
+						"exec": [
+							"var dataSize = 10; // change this",
+							"var xmlArray = [''];",
+							"for (var i = 0; i<dataSize;i++){",
+							"    xmlArray.push ('<customer><firstName>{{$randomFirstName}}</firstName> \\",
+							"                     <lastName>{{$randomLastName}}</lastName> \\",
+							"                     <country>{{$randomCountry}}</country></customer>');",
+							"}",
+							"xmlString = '<?xml version=\"1.0\" encoding=\"UTF-8\"?><customers>' + ",
+							"            xmlArray.join('') + '</customers>';",
+							"pm.variables.set(\"xmlData\", xmlString);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "text/csv",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{{xmlData}}",
+					"options": {
+						"raw": {
+							"language": "xml"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://random-test-data.au-s1.cloudhub.io/data",
+					"protocol": "https",
+					"host": [
+						"random-test-data",
+						"au-s1",
+						"cloudhub",
+						"io"
+					],
+					"path": [
+						"data"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

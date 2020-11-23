@@ -1,0 +1,80 @@
+{
+	"info": {
+		"_postman_id": "a80fb8fb-a6c5-4266-bd7b-0735d00bbba9",
+		"name": "Random Data Generator Showcase",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Generate Random Data Showcase in JSON",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a708a4f2-e79e-469e-b90d-c53ef28e04d3",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "2cc5f46e-ae50-488b-8617-06079bb45b51",
+						"exec": [
+							"var dataSize = 10; // change this",
+							"var jsonArray = [];",
+							"for (var i = 0; i<dataSize;i++){",
+							"    jsonArray.push ('{ \"firstName\": \"{{$randomFirstName}}\" , \\",
+							"                       \"lastName\" :  \"{{$randomLastName}}\" , \\",
+							"                       \"country\" : \"{{$randomCountry}}\" }');",
+							"}",
+							"jsonString = '[' + jsonArray.toString() + ']';",
+							"pm.variables.set(\"jsonData\", jsonString);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "text/csv",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    {\n        \"title\": \"{{$randomNamePrefix}}\",\n        \"firstname\": \"{{$randomFirstName}}\",\n        \"lastname\": \"{{$randomLastName}}\",\n        \"country\": \"{{$randomCountry}}\",\n        \"phone\": \"{{$randomPhoneNumber}}\",\n        \"accountname\": \"{{$randomBankAccountName}}\",\n        \"balance\": \"{{$randomInt}}\",\n        \"lasttransactiondate\": \"{{$randomDatePast}}\"\n\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://random-test-data.au-s1.cloudhub.io/data",
+					"protocol": "https",
+					"host": [
+						"random-test-data",
+						"au-s1",
+						"cloudhub",
+						"io"
+					],
+					"path": [
+						"data"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
